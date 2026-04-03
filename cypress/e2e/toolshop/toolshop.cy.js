@@ -12,6 +12,8 @@ describe("Toolshop: e2e", () => {
   });
 
   it("TC01 - should load the home page", () => {
+    cy.visitHome();
+
     cy.url().should("include", "/#/");
     cy.title().should("include", data.base.homeTitle);
     cy.contains("a", "Home").should("be.visible");
@@ -19,6 +21,8 @@ describe("Toolshop: e2e", () => {
   });
 
   it("TC02 - should display the main navbar links", () => {
+    cy.visitHome();
+
     cy.get("a").should("exist");
     cy.contains("a", "Home").should("be.visible");
     cy.contains("a", "Categories").should("be.visible");
@@ -70,6 +74,8 @@ describe("Toolshop: e2e", () => {
   });
 
   it("TC08 - should show sign in link on public home", () => {
+    cy.visitHome();
+
     cy.contains("a", "Sign in").should("be.visible");
     cy.contains("a", "Home").should("be.visible");
     cy.url().should("include", "/#/");
@@ -115,6 +121,8 @@ describe("Toolshop: e2e", () => {
   });
 
   it("TC13 - should remain in public state when not authenticated", () => {
+    cy.visitHome();
+
     cy.contains("a", "Sign in").should("be.visible");
     cy.contains("a,button", "Sign out").should("not.exist");
     cy.url().should("not.include", "/account");
