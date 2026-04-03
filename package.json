@@ -1,0 +1,17 @@
+{
+  "name": "cypressautomation",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "omar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome"
+  },
+  "devDependencies": {
+    "cypress": "^15.12.0"
+  }
+}
