@@ -138,5 +138,33 @@ describe("Toolshop: e2e", () => {
     cy.get('input[name="first_name"], input[placeholder*="first" i]').should("be.visible");
     cy.get(".is-invalid, .ng-invalid").should("have.length.greaterThan", 0);
   });
+
+  it("TC16 - should reject login with wrong email and valid password", () => {
+    cy.goToSignIn();
+    cy.login("not-a-user@example.com", data.users.customer.password);
+
+    cy.url().should("include", "/auth/login");
+    cy.get('input[type="email"]').should("have.value", "not-a-user@example.com");
+    cy.contains(".alert", "Invalid email or password").should("be.visible");
+  });
+
+  it("TC17 - should reject login with valid email and wrong password", () => {
+    cy.goToSignIn();
+    cy.login(data.users.customer.email, "wrong-password-123");
+
+    cy.url().should("include", "/auth/login");
+    cy.get('input[type="email"]').should("have.value", data.users.customer.email);
+    cy.contains(".alert", "Invalid email or password").should("be.visible");
+  });
+
+  it("TC18 - should reject login with invalid email format", () => {
+    cy.goToSignIn();
+    cy.login("bad-email-format", "some-password");
+
+    cy.url().should("include", "/auth/login");
+    cy.get('input[type="email"]').should("have.value", "bad-email-format");
+    cy.get(".is-invalid, .ng-invalid").should("have.length.greaterThan", 0);
+  });
+
 });
 
