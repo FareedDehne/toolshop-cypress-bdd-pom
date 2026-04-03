@@ -1,17 +1,11 @@
 Cypress.Commands.add("openFirstProductCard", () => {
-  cy.get('a[href*="/product/"], a[href*="#/product/"]', { timeout: 20000 })
-    .filter(":visible")
-    .first()
-    .should("be.visible")
-    .click({ force: true });
+  cy.get('a[href*="/product/"]', { timeout: 20000 }).first().should("be.visible").click();
 });
 
 Cypress.Commands.add("addToCartFromProduct", () => {
-  cy.contains("button", /add to cart/i, { timeout: 20000 })
-    .should("be.enabled")
-    .click();
+  cy.contains("button", "Add to cart", { timeout: 20000 }).should("be.visible").click();
 });
 
 Cypress.Commands.add("openCart", () => {
-  cy.contains("a,button", /cart/i, { timeout: 20000 }).first().click({ force: true });
+  cy.contains("a,button", "Cart", { timeout: 20000 }).first().should("be.visible").click();
 });

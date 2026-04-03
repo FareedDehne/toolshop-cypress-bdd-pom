@@ -6,16 +6,20 @@ Cypress.Commands.add("goToSignIn", () => {
 Cypress.Commands.add("login", (email, password) => {
   cy.get('input[type="email"]', { timeout: 20000 }).should("be.visible").clear().type(email);
   cy.get('input[type="password"]').should("be.visible").clear().type(password, { log: false });
-  cy.contains('button, input[type="submit"]', /^sign in$|^login$/i)
-    .should("be.enabled")
+  cy.submitLogin();
+});
+
+Cypress.Commands.add("submitLogin", () => {
+  cy.get('button[type="submit"], input[type="submit"]', { timeout: 20000 })
+    .first()
+    .should("be.visible")
     .click();
 });
 
 Cypress.Commands.add("logout", () => {
-  cy.contains("a,button", /doe/i, { timeout: 20000 }).click({ force: true });
-
-  cy.contains("a,button", /sign out|logout/i, { timeout: 20000 })
-    .scrollIntoView()
+  cy.contains("a,button", /jane doe|john doe|my account|account/i, { timeout: 20000 })
     .should("be.visible")
-    .click({ force: true });
+    .click();
+
+  cy.contains("a,button", /sign out|logout/i, { timeout: 20000 }).should("be.visible").click();
 });

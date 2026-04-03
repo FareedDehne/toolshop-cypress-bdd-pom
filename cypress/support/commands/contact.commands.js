@@ -8,13 +8,9 @@ Cypress.Commands.add("fillContactForm", ({ firstName, lastName, email, subject, 
   cy.get('input[name="last_name"], input[placeholder*="last" i]').first().clear().type(lastName);
   cy.get('input[type="email"]').first().clear().type(email);
   cy.get('input[name="subject"], input[placeholder*="subject" i]').first().clear().type(subject);
-  cy.get('textarea, textarea[name="message"], textarea[placeholder*="message" i]').first().clear().type(message);
+  cy.get('textarea[name="message"], textarea[placeholder*="message" i]').first().clear().type(message);
 });
 
 Cypress.Commands.add("submitContactForm", () => {
-  cy.get('button[type="submit"], input[type="submit"]', { timeout: 20000 })
-    .first()
-    .scrollIntoView()
-    .should("be.enabled")
-    .click({ force: true });
+  cy.get('button[type="submit"], input[type="submit"]', { timeout: 20000 }).first().should("be.visible").click();
 });
