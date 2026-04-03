@@ -1,4 +1,4 @@
-describe("Practice Software Testing - Toolshop", () => {
+describe("Toolshop: public and auth flows", () => {
   let data;
 
   before(() => {
@@ -11,26 +11,26 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.visitHome();
   });
 
-  it("TC01 - Home page loads correctly", () => {
+  it("TC01 - should load the home page", () => {
     cy.contains("a", /^home$/i).should("be.visible");
     cy.contains("a", /categories/i).should("be.visible");
     cy.contains("a", /contact/i).should("be.visible");
     cy.location("href").should("include", "practicesoftwaretesting.com");
   });
 
-  it("TC02 - Navbar has main links", () => {
+  it("TC02 - should display the main navbar links", () => {
     cy.contains("a", /^home$/i).should("be.visible");
     cy.contains("a", /categories/i).should("be.visible");
     cy.contains("a", /^contact$/i).should("be.visible");
   });
 
-  it("TC03 - Categories menu opens", () => {
+  it("TC03 - should open the categories menu", () => {
     cy.openCategoriesMenu();
     cy.contains("a,button", /hand tools|power tools|other/i).should("be.visible");
     cy.contains("a", /categories/i).should("be.visible");
   });
 
-  it("TC04 - Navigate to a category from the menu", () => {
+  it("TC04 - should navigate to a category from the menu", () => {
     cy.chooseCategory("Hand Tools");
 
     cy.location("pathname").should("include", "/category");
@@ -38,13 +38,13 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get('a[href*="/product/"], a[href*="#/product/"]').its("length").should("be.gt", 0);
   });
 
-  it("TC05 - Sort dropdown exists and is usable", () => {
+  it("TC05 - should allow selecting an option from sort dropdown", () => {
     cy.get("select", { timeout: 20000 }).first().should("be.visible").select(1);
     cy.get("select").first().find("option:selected").should("exist");
     cy.get("body").should("be.visible");
   });
 
-  it("TC06 - Open a product details page", () => {
+  it("TC06 - should open a product details page", () => {
     cy.openFirstProductCard();
 
     cy.location("pathname").should("match", /\/product\/\d+/);
@@ -52,7 +52,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.contains("button", /add to cart/i).should("be.visible");
   });
 
-  it("TC07 - Add to cart button changes cart state (or shows confirmation)", () => {
+  it("TC07 - should update cart state after adding a product", () => {
     cy.openFirstProductCard();
     cy.addToCartFromProduct();
 
@@ -61,13 +61,13 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get("body").should("be.visible");
   });
 
-  it("TC08 - Sign in link is visible on public home", () => {
+  it("TC08 - should show sign in link on public home", () => {
     cy.contains("a", /sign in/i).should("be.visible");
     cy.get("body").should("contain.text", "Home");
     cy.location("pathname").should("eq", "/");
   });
 
-  it("TC09 - Sign in page loads and has fields", () => {
+  it("TC09 - should load sign in page with required fields", () => {
     cy.goToSignIn();
 
     cy.get('input[type="email"]').should("be.visible");
@@ -75,7 +75,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.contains('button, input[type="submit"]', /^login$|^sign in$/i).should("be.visible");
   });
 
-  it("TC10 - Login validation shows error when fields are empty", () => {
+  it("TC10 - should show login validation errors for empty fields", () => {
     cy.goToSignIn();
     cy.contains('button, input[type="submit"]', /^login$|^sign in$/i).click();
 
@@ -84,7 +84,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get('input[type="email"]').should("be.visible");
   });
 
-  it("TC11 - Login fails with invalid credentials", () => {
+  it("TC11 - should fail login with invalid credentials", () => {
     cy.goToSignIn();
     cy.login("wrong@example.com", "wrongpass");
 
@@ -93,7 +93,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get('input[type="email"]').should("have.value", "wrong@example.com");
   });
 
-  it("TC12 - Login succeeds with customer fixture user", () => {
+  it("TC12 - should log in successfully with fixture customer user", () => {
     cy.goToSignIn();
     cy.login(data.users.customer.email, data.users.customer.password);
 
@@ -103,7 +103,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get("body").should("contain.text", "My account");
   });
 
-  it("TC13 - Logout returns user to public state", () => {
+  it("TC13 - should return user to public state after logout", () => {
     cy.goToSignIn();
     cy.login(data.users.customer.email, data.users.customer.password);
     cy.logout();
@@ -113,7 +113,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.location("pathname").should("not.include", "/account");
   });
 
-  it("TC14 - Contact page loads and has form", () => {
+  it("TC14 - should load contact page with contact form", () => {
     cy.goToContact();
 
     cy.contains(/contact/i).should("be.visible");
@@ -121,7 +121,7 @@ describe("Practice Software Testing - Toolshop", () => {
     cy.get('input[type="email"]').should("be.visible");
   });
 
-  it("TC15 - Contact form validation triggers on empty submit", () => {
+  it("TC15 - should trigger contact form validation on empty submit", () => {
     cy.goToContact();
     cy.submitContactForm();
 
