@@ -8,7 +8,7 @@ Cypress.Commands.add("navTo", (label) => {
 });
 
 Cypress.Commands.add("openCategoriesMenu", () => {
-  cy.contains("a", "Categories", { timeout: 20000 }).should("be.visible").click();
+  cy.contains("a,button", "Categories", { timeout: 20000 }).should("be.visible").click();
 });
 
 Cypress.Commands.add("chooseCategory", (categoryLabel) => {

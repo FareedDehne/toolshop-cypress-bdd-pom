@@ -1,16 +1,12 @@
-const { defineConfig } = require("cypress");
-
-module.exports = defineConfig({
-  allowCypressEnv: false,
-
+module.exports = {
   e2e: {
     baseUrl: "https://practicesoftwaretesting.com",
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    chromeWebSecurity:false,
-    watchForFileChanges:false,
-    viewportHeight:1000,
-    viewportWidth:1920,
+    chromeWebSecurity: false,
+    watchForFileChanges: false,
+    viewportHeight: 1000,
+    viewportWidth: 1920,
   },
-});
+};

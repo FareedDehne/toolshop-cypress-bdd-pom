@@ -19,9 +19,9 @@
     "invalidTerm": "zzzzzz-not-a-real-product"
   },
   "contact": {
-    "firstName": "mohaned",
+    "firstName": "fareed",
     "lastName": "Tester",
-    "email": "mohaned.tester@example.com",
+    "email": "fareed.tester@example.com",
     "subject": "test subject",
     "message": "test message."
   }
