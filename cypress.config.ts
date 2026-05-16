@@ -9,7 +9,7 @@ export default defineConfig({
 
     specPattern: [
       "cypress/e2e/**/*.cy.js",
-      "cypress/e2e/features/**/*.feature",
+      "cypress/e2e/**/*.feature",
     ],
 
     async setupNodeEvents(
