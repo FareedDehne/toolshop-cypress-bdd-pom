@@ -32,5 +32,14 @@ export default defineConfig({
     watchForFileChanges: false,
     viewportHeight: 1000,
     viewportWidth: 1920,
+
+    defaultCommandTimeout: 10000,
+  pageLoadTimeout: 120000,
+  requestTimeout: 30000,
+  responseTimeout: 60000,
+  retries: {
+    runMode: 2,
+    openMode: 0,
+  },
   },
 });

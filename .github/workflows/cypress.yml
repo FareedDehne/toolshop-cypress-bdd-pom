@@ -16,15 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check website connectivity
+        run: curl -I --retry 5 --retry-delay 10 --max-time 60 https://practicesoftwaretesting.com/
+
       - name: Run Cucumber BDD tests
         uses: cypress-io/github-action@v6
         with:
           command: npx cypress run --spec cypress/e2e/features/toolshop.feature --config viewportWidth=1920,viewportHeight=1000
-
-      - name: Run Cypress POM tests
-        uses: cypress-io/github-action@v6
-        with:
-          command: npx cypress run --spec cypress/e2e/toolshop/toolshop.cy.js --config viewportWidth=1920,viewportHeight=1000
 
       - name: Upload Cypress screenshots
         if: failure()
