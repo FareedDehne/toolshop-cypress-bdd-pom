@@ -16,16 +16,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Run Cucumber BDD tests
-        run: npx cypress run --spec "cypress/e2e/features/toolshop.feature"
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx cypress run --spec "cypress/e2e/features/toolshop.feature" --config viewportWidth=1920,viewportHeight=1000
 
       - name: Run Cypress POM tests
-        run: npx cypress run --spec "cypress/e2e/toolshop/toolshop.cy.js"
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx cypress run --spec "cypress/e2e/toolshop/toolshop.cy.js" --config viewportWidth=1920,viewportHeight=1000
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
